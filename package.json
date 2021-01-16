@@ -1,0 +1,38 @@
+{
+  "name": "cli-lc",
+  "version": "1.0.0",
+  "description": "个人学习",
+  "main": "index.js",
+  "scripts": {
+    "dev:watch": "tsc -w",
+    "dev:start": "nodemon ./build/index",
+    "start": "./build/index"
+  },
+  "bin": {
+    "lc": "./src/bin/cli-lc"
+  },
+  "keywords": [
+    "cli",
+    "cmd",
+    "commander",
+    "util"
+  ],
+  "author": "HookAder",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "cli-progress": "^3.8.2",
+    "inquirer": "^7.3.3",
+    "mysql": "^2.18.1",
+    "node-cmd": "^4.0.0",
+    "prompts": "^2.4.0",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "@types/cli-progress": "^3.8.0",
+    "@types/inquirer": "^7.3.1",
+    "@types/mysql": "^2.15.17",
+    "@types/prompts": "^2.0.9",
+    "@types/request": "^2.48.5"
+  }
+}
