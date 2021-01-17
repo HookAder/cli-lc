@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "description": "个人学习",
   "main": "index.js",
+  "homepage": "https://github.com/HookAder/cli-lc",
   "scripts": {
     "dev:watch": "tsc -w",
     "dev:start": "nodemon ./build/index",
