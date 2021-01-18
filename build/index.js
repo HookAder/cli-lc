@@ -44,22 +44,14 @@ var chalk_1 = __importDefault(require("chalk"));
 var prompts_1 = __importDefault(require("prompts"));
 var inquirer_1 = __importDefault(require("inquirer"));
 var request_1 = __importDefault(require("request"));
+var update_notifier_1 = __importDefault(require("update-notifier"));
 var index_1 = require("./types/index");
-var SelectDepend_1 = __importDefault(require("./options/SelectDepend"));
+var react_SelectDepend_1 = __importDefault(require("./options/react_SelectDepend"));
+var express_SelectDepend_1 = __importDefault(require("./options/express_SelectDepend"));
 var inputProjectName_1 = __importDefault(require("./options/inputProjectName"));
-// login options
-var questions = [
-    {
-        type: "text",
-        name: "username",
-        message: "UserName:",
-    },
-    {
-        type: "password",
-        name: "password",
-        message: "PassWord:",
-    },
-];
+var pkg = require('../package.json');
+var notifier = update_notifier_1.default({ pkg: pkg });
+notifier.notify();
 inquirer_1.default
     .prompt([
     {
@@ -69,63 +61,74 @@ inquirer_1.default
         choices: [
             index_1.OptionsList.Hello,
             new inquirer_1.default.Separator(),
-            index_1.OptionsList.Introdution,
+            index_1.OptionsList.InstallExpressProject,
             new inquirer_1.default.Separator(),
             index_1.OptionsList.InstallReactProject,
         ],
     },
 ])
     .then(function (answers) { return __awaiter(void 0, void 0, void 0, function () {
+    var projectName;
     return __generator(this, function (_a) {
-        if (answers.option === index_1.OptionsList.Hello) {
-            console.log(chalk_1.default.red("Hello Welcome to Cli."));
+        switch (_a.label) {
+            case 0:
+                if (!(answers.option === index_1.OptionsList.Hello)) return [3 /*break*/, 1];
+                console.log(chalk_1.default.red("Hello Welcome to Cli."));
+                return [3 /*break*/, 5];
+            case 1:
+                if (!(answers.option === index_1.OptionsList.InstallExpressProject)) return [3 /*break*/, 4];
+                return [4 /*yield*/, prompts_1.default(inputProjectName_1.default)];
+            case 2:
+                projectName = (_a.sent()).projectName;
+                return [4 /*yield*/, express_SelectDepend_1.default(projectName)];
+            case 3:
+                _a.sent();
+                return [3 /*break*/, 5];
+            case 4:
+                if (answers.option === index_1.OptionsList.InstallReactProject) {
+                    // dosomething
+                    inquirer_1.default
+                        .prompt([
+                        {
+                            type: "list",
+                            name: "type",
+                            message: "选项",
+                            choices: [
+                                index_1.InstallOptions.newProject,
+                                new inquirer_1.default.Separator(),
+                                index_1.InstallOptions.InstallReactAdminTemplate,
+                            ],
+                        },
+                    ])
+                        .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
+                        var projectName;
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
+                                case 0:
+                                    if (!(res.type === index_1.InstallOptions.newProject)) return [3 /*break*/, 3];
+                                    return [4 /*yield*/, prompts_1.default(inputProjectName_1.default)];
+                                case 1:
+                                    projectName = (_a.sent()).projectName;
+                                    // select dependencies
+                                    return [4 /*yield*/, react_SelectDepend_1.default(projectName)];
+                                case 2:
+                                    // select dependencies
+                                    _a.sent();
+                                    return [3 /*break*/, 5];
+                                case 3:
+                                    if (!(res.type === index_1.InstallOptions.InstallReactAdminTemplate)) return [3 /*break*/, 5];
+                                    return [4 /*yield*/, request_1.default("https://github.com/HookAder/react-admin-template/archive/master.zip").pipe(fs_1.default.createWriteStream("master.zip"))];
+                                case 4:
+                                    _a.sent();
+                                    console.log("文件下载中...");
+                                    _a.label = 5;
+                                case 5: return [2 /*return*/];
+                            }
+                        });
+                    }); });
+                }
+                _a.label = 5;
+            case 5: return [2 /*return*/];
         }
-        else if (answers.option === index_1.OptionsList.Introdution) {
-            // what are you doing
-            console.log(chalk_1.default.green("www.inlcas.top"));
-        }
-        else if (answers.option === index_1.OptionsList.InstallReactProject) {
-            // dosomething
-            inquirer_1.default
-                .prompt([
-                {
-                    type: "list",
-                    name: "type",
-                    message: "选项",
-                    choices: [
-                        index_1.InstallOptions.newProject,
-                        new inquirer_1.default.Separator(),
-                        index_1.InstallOptions.InstallReactAdminTemplate,
-                    ],
-                },
-            ])
-                .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
-                var projectName;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0:
-                            if (!(res.type === index_1.InstallOptions.newProject)) return [3 /*break*/, 3];
-                            return [4 /*yield*/, prompts_1.default(inputProjectName_1.default)];
-                        case 1:
-                            projectName = (_a.sent()).projectName;
-                            // select dependencies
-                            return [4 /*yield*/, SelectDepend_1.default(projectName)];
-                        case 2:
-                            // select dependencies
-                            _a.sent();
-                            return [3 /*break*/, 5];
-                        case 3:
-                            if (!(res.type === index_1.InstallOptions.InstallReactAdminTemplate)) return [3 /*break*/, 5];
-                            return [4 /*yield*/, request_1.default("https://github.com/HookAder/react-admin-template/archive/master.zip").pipe(fs_1.default.createWriteStream("master.zip"))];
-                        case 4:
-                            _a.sent();
-                            console.log("文件下载中...");
-                            _a.label = 5;
-                        case 5: return [2 /*return*/];
-                    }
-                });
-            }); });
-        }
-        return [2 /*return*/];
     });
 }); });

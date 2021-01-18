@@ -1,7 +1,7 @@
 // terminal selected options
 export enum OptionsList {
   Hello = "你好",
-  Introdution = "介绍",
+  InstallExpressProject = "安装Express项目",
   InstallReactProject = "安装React项目",
 }
 

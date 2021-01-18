@@ -5,7 +5,7 @@ exports.InstallOptions = exports.OptionsList = void 0;
 var OptionsList;
 (function (OptionsList) {
     OptionsList["Hello"] = "\u4F60\u597D";
-    OptionsList["Introdution"] = "\u4ECB\u7ECD";
+    OptionsList["InstallExpressProject"] = "\u5B89\u88C5Express\u9879\u76EE";
     OptionsList["InstallReactProject"] = "\u5B89\u88C5React\u9879\u76EE";
 })(OptionsList = exports.OptionsList || (exports.OptionsList = {}));
 var InstallOptions;
